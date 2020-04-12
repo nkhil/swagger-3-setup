@@ -1,0 +1,11 @@
+{
+  "name": "swagger-three-setup",
+  "version": "1.0.0",
+  "description": "Boilerplate repository to setup swagger 3.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Nikhil Vijayan",
+  "license": "MIT"
+}
