@@ -58,6 +58,9 @@ module.exports = {
     /*
      * ESLint Core Rules
      */
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
     "callback-return": [2, // Helps avoid silly developer mistakes.
       ["callback", "cb", "finish", "done", "next", "nextItem"]
     ],
