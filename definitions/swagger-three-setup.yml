@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Sample API
+  description: Optional multi-line or single-line description in [CommonMark](http://commonmark.org/help/) or HTML.
+  version: 0.1.9
+servers:
+  - url: http://api.example.com/v1
+    description: Optional server description, e.g. Main (production) server
+  - url: http://staging-api.example.com
+    description: Optional server description, e.g. Internal staging server for testing
+paths:
+  /healthcheck/ping:
+    get:
+      description: Returns the readiness of the service
+      operationId: ping
+      x-eov-operation-id: ping
+      x-eov-operation-handler: healthcheck
+      parameters:
+        - $ref: '#/components/parameters/x-correlation-id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: OK
+        '401':
+          $ref: '#/components/responses/401'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  responses:
+    '401':
+      description: Unauthorised Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UnauthorisedError'
+    '404':
+      description: Not Found Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/NotFoundError'
+    '500':
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InternalServerError'
+    default:
+      description: Invalid Request Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/InvalidRequestError'
+  parameters:
+    x-correlation-id:
+      name: x-correlation-id
+      required: true
+      in: header
+      description: Correlation ID required for log tracing.
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    healthCheckResponse:
+      description: healthcheck OK response
+      type: object
+      properties:
+        message:
+          type: string
+          enum:
+            - OK
+    NotFoundError:
+      title: Not Found Error
+      additionalProperties: false
+      required:
+        - message
+        - details
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+    UnauthorisedError:
+      title: Not Found Error
+      additionalProperties: false
+      required:
+        - message
+        - details
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+    InvalidRequestError:
+      additionalProperties: false
+      required:
+        - message
+        - details
+      properties:
+        message:
+          type: string
+        details:
+          type: string
+    InternalServerError:
+      title: Internal Server Error
+      required:
+        - message
+        - details
+      properties:
+        message:
+          type: string
+        details:
+          type: string
