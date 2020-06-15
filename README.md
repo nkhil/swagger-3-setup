@@ -13,5 +13,5 @@ npm run develop
 
 The app should now be running on http://localhost:8080
 
-Open Postman and set up a GET request to `http://localhost:8080` with `x-correlation-id` in your headers. This needs to be a valid UUID. 
+Open Postman and set up a GET request to `http://localhost:8080/healthcheck` with `x-correlation-id` in your headers. This needs to be a valid UUID. 
 
